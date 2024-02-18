@@ -1,0 +1,109 @@
+<div id="container">
+    <button class="btnEdit" (click)="openDialogEdit();">Edit</button>
+    <button class="btnMultiUpd" (click)="openDialogMultiUpd();">Multi-Upd</button>
+    <button class="btnMultiAdd" (click)="openDialog();">Multi-Add</button>
+    <app-botao-excluir></app-botao-excluir>
+    <div class="boxTextIndex">
+       <p class="inline">Text</p>
+       <p class="inline">Index</p>
+        <div style="width: 300px;" *ngIf="answersBool2">
+            <ng-container *ngFor="let answer of answers; trackBy: trackByFn">
+                <ng-template [ngIf]="answer.selected">
+                    <div (click)="selectAnswer(answer)" class="selecionado container">
+                        <div>{{answer.answer}}</div>
+                        <div>{{answer.id}}</div>
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="!answer.selected">
+                    <div (click)="selectAnswer(answer)" class="container">
+                        <div>{{answer.answer}}</div>
+                        <div>{{answer.id}}</div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </div>
+        <div style="width: 300px;" *ngIf="answersBool">
+            <ng-container *ngFor="let tQuestion of typeQuestion; trackBy: trackByFn">
+                <div *ngFor="let answer of tQuestion.typeQuestion.answers; let i = index">
+                    <ng-template [ngIf]="answer.selected" *ngIf="tQuestion.typeQuestion.question === myQuestion">
+                        <div (click)="selectAnswer(answer)" class="selecionado container">
+                            <div>{{answer.answer}}</div>
+                            <div>{{answer.id}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template [ngIf]="!answer.selected" *ngIf="tQuestion.typeQuestion.question === myQuestion">
+                        <div (click)="selectAnswer(answer)" class="container">
+                            <div>{{answer.answer}}</div>
+                            <div>{{answer.id}}</div>
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-container>
+        </div>
+        <div style="width: 300px;" *ngIf="topicsBool">
+            <ng-container *ngFor="let tQuestion of typeQuestion2; trackBy: trackByFn">
+                <div *ngFor="let answer of tQuestion.typeQuestion.answers; let i = index">
+                    <ng-template [ngIf]="answer.selected" *ngIf="tQuestion.typeQuestion.question === myQuestion">
+                        <div (click)="selectAnswer(answer)" class="selecionado container">
+                            <div>{{answer.answer}}</div>
+                            <div>{{answer.id}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template [ngIf]="!answer.selected" *ngIf="tQuestion.typeQuestion.question === myQuestion">
+                        <div (click)="selectAnswer(answer)" class="container">
+                            <div>{{answer.answer}}</div>
+                            <div>{{answer.id}}</div>
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-container>
+        </div>
+        <div style="width: 300px;" *ngIf="rmBoolRecorded">
+            <ng-container *ngFor="let tQuestion of typeQuestionRM; trackBy: trackByFn">
+                <div *ngFor="let answer of tQuestion.typeQuestion.answers; let i = index">
+                    <ng-template [ngIf]="answer.selected" *ngIf="tQuestion.typeQuestion.question === myQuestion">
+                        <div (click)="selectAnswer(answer)" class="selecionado container">
+                            <div>{{answer.answer}}</div>
+                            <div>{{answer.id}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template [ngIf]="!answer.selected" *ngIf="tQuestion.typeQuestion.question === myQuestion">
+                        <div (click)="selectAnswer(answer)" class="container">
+                            <div>{{answer.answer}}</div>
+                            <div>{{answer.id}}</div>
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div>
+        Back Color: 
+        <select class="select" class="margin-bottom">
+            <option>Transparent</option>
+        </select>
+        <br>
+        Nuns of Columns: <input type="text" placeholder="1">
+        <select class="select">
+            <option>Default</option>
+        </select>
+        <br>
+        Answers space: <input style="margin-top: 15px;" type="text">
+        Rows space: <input style="margin-top: 15px;" type="text">
+        <br>
+        <div class="margin-bottom">
+            Render Mode: 
+            <select  (click)="layoutMethod($event);" name="radio" class="selectWidth">
+                <option value="radio">Radio Buttom(Default)</option>
+                <option value="checkbox">Check Box</option>
+                <option value="selecionar">Select</option>
+                <option value="caixa">Box</option>
+                <option value="links">Links</option>
+                <option value="normal">Normal</option>
+            </select>
+        </div>
+        <input style="width: 15px; height: 15px;" type="checkbox"/> Auto-Advanced
+        <a href="#" style="margin-left: 30px;">Apply auto advanced to al question</a>
+        <div style="margin-top: 200px;"></div>
+    </div>
+</div>

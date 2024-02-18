@@ -1,0 +1,16 @@
+<div>
+    <div class="colorPaleta">
+        <button id="colorRed" (click)="colorMethod('red');">Red</button>
+        <button id="colorBlue" (click)="colorMethod('blue');">Blue</button>
+        <button id="colorYellow" (click)="colorMethod('yellow');">Yellow</button>
+        <button id="colorGreen" (click)="colorMethod('green');">Green</button>
+        <button id="colorPurple" (click)="colorMethod('purple');">Purple</button>
+        <button id="colorGray" (click)="colorMethod('gray');">Gray</button>
+    </div>
+    <ul>
+        <li class="border"><input id="input" [(ngModel)]="answer"  #input name="answerInput" [ngStyle]="{'color': corAnswer}"  type="text"/></li>
+    </ul>
+    <div>
+        <button class="btn" (click)="edit();">Edit</button>
+    </div>
+</div>

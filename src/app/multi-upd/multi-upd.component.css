@@ -1,0 +1,19 @@
+.btn {
+    float: right;
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.border {
+    border: 1px solid black;
+}
+
+.width-height-textarea {
+    width: 100%;
+    height: 500px;
+}
+
+
+

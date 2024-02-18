@@ -1,0 +1,163 @@
+{
+  "typeQuestion": [
+    {
+      "id": 1,
+      "typeQuestion": {
+        "typeQuestion": "RU",
+        "question": "Qual o seu sexo?",
+        "answers": [
+          {
+            "id": 1,
+            "answer": "Masculino",
+            "selected": false
+          },
+          {
+            "id": 2,
+            "answer": "Feminino",
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "typeQuestion": {
+        "typeQuestion": "RU",
+        "question": "Qual o seu sexo?(versão dois)",
+        "answers": [
+          {
+            "id": 1,
+            "answer": "Masc",
+            "selected": false
+          },
+          {
+            "id": 2,
+            "answer": "Fem",
+            "selected": false
+          }
+        ]
+      }
+    }
+  ],
+  "typeQuestion2": [
+    {
+      "id": 1,
+      "typeQuestion": {
+        "typeQuestion": "Grid",
+        "question": "Vc comeria essas frutas?",
+        "answers": [
+          {
+            "id": 1,
+            "answer": "Sim",
+            "selected": false
+          },
+          {
+            "id": 2,
+            "answer": "Não",
+            "selected": false
+          },
+          {
+            "id": 3,
+            "answer": "Talvez",
+            "selected": false
+          }
+        ],
+        "topics": [
+          {
+            "id": 1,
+            "topic": "Pinha",
+            "selectedTopics": false
+          },
+          {
+            "id": 2,
+            "topic": "Uva",
+            "selectedTopics": false
+          },
+          {
+            "id": 3,
+            "topic": "Pêra",
+            "selectedTopics": false
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "typeQuestion": {
+        "typeQuestion": "Grid",
+        "question": "Vc comeria essas frutas?(versão dois)",
+        "answers": [
+          {
+            "id": 1,
+            "answer": "Sim",
+            "selected": false
+          },
+          {
+            "id": 2,
+            "answer": "Não",
+            "selected": false
+          },
+          {
+            "id": 3,
+            "answer": "Talvez",
+            "selected": false
+          }
+        ],
+        "topics": [
+          {
+            "id": 1,
+            "topic": "Melão",
+            "selectedTopics": false
+          },
+          {
+            "id": 2,
+            "topic": "Genipapo",
+            "selectedTopics": false
+          }
+        ]
+      }
+    }
+  ],
+  "typeQuestionRM": [
+    {
+      "id": 1,
+      "typeQuestion": {
+        "typeQuestion": "RM",
+        "question": "O que vc faz?",
+        "answers": [
+          {
+            "id": 1,
+            "answer": "Trabalho",
+            "selected": false
+          },
+          {
+            "id": 2,
+            "answer": "Estudo",
+            "selected": false
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "typeQuestion": {
+        "typeQuestion": "RM",
+        "question": "O que vc faz?(versão dois)",
+        "answers": [
+          {
+            "id": 1,
+            "answer": "Trampo",
+            "selected": false
+          },
+          {
+            "id": 2,
+            "answer": "Estudo",
+            "selected": false
+          }
+        ]
+      }
+    }
+  ],
+  "answers": [],
+  "topics": []
+}

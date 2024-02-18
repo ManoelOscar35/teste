@@ -1,0 +1,394 @@
+<header>
+    <nav>
+        <p class="p" routerLink="/">Survey ToGo Studio</p>
+        <div id="navegacao">
+            <ul>
+                <li>File</li>
+                <li>Survey</li>
+                <li>Tools</li>
+                <li>Question</li>
+                <li>Results</li>
+                <li>Language</li>
+                <li>View</li>
+                <li>Window</li>
+                <li>Help</li>
+            </ul>
+            <mat-divider></mat-divider>
+            <div class="padding">
+                <button (click)="typeQuestion();">Single Choice</button>   
+            </div>
+            <div class="padding">
+                <button (click)="typeQuestionRM();">Multiple Selection</button>   
+            </div>
+            <div class="padding">
+                <button (click)="setGrid();">SingleChoiceGrid</button>   
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </nav>
+</header>
+<main >
+    <div id="main-background-color">
+        <h1 class="titulo">CAPI TO CAWI</h1>
+        <div class="background-color">
+            <h3>Mode:</h3>
+            <div class="radios">
+                <input type="radio" name="mode" value="draft">
+                <p class="p-radios">Draft</p>
+            </div>
+            <div class="radios">
+                <input type="radio" name="mode" value="test[Deployed]">
+                <p class="p-radios">Test [Deployed]</p>
+            </div>
+            <div class="radios">
+                <input type="radio" name="mode" value="production[Deployed]">
+                <p class="p-radios">Production [Deployed]</p>
+            </div>
+            <div class="radios">
+                <input type="radio" name="mode" value="closed"/>
+                <p class="p-radios">Closed</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="border">
+            <div class="col-1">
+                <h4>Survey Tree</h4>
+                <mat-divider></mat-divider>
+            </div>
+            <div *ngFor="let d of data">
+                <span class="m">{{d.typeQuestion.typeQuestion}}</span>
+                <span class="m" (click)="setQuestion(d);">{{d.typeQuestion.question}}</span>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <div *ngFor="let d of dataRM">
+                <span class="m">{{d.typeQuestion.typeQuestion}}</span>
+                <span class="m" (click)="setQuestionRM(d)">{{d.typeQuestion.question}}</span>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <div *ngFor="let d of data2">
+                <span class="m">{{d.typeQuestion.typeQuestion}}</span>
+                <span class="m" (click)="setQuestion2(d);">{{d.typeQuestion.question}}</span>
+            </div>
+        </div>
+        <div class="col-1">
+            <p>Question Type:
+                <select>
+                    <option>Single Choice</option> 
+                </select>
+                <input type="checkbox" style="margin-left: 5px;"> Dummy (Hidden)
+                <input type="checkbox"> Read Only
+                <input type="checkbox"> RIL (Inhert)
+            </p>
+            <p id="bottom">
+                Test setting (Plain Text Only)
+                <select>
+                    <option>Default (Bold)</option> 
+                </select>
+            </p> 
+            <div id="questionAnswers">
+                <div id="flex" *ngIf="!barraBool">
+                    <p [ngStyle]="{'background-color': corDeFundoQuestion}" (click)="changeColorMethodQuestion();" routerLink="/">Question</p> 
+                    <p [ngStyle]="{'background-color': corDeFundoAnswer}" (click)="changeColorMethodAnswer();" routerLink="/answer">Answers</p>
+                    <p [ngStyle]="{'background-color': corDeFundoTopics}" *ngIf="topicBool"  (click)="changeColorMethodTopics();" routerLink="/topic">Topics</p>
+                </div>
+                <div>
+                    <div *ngIf="questionInput; else router ">
+                        <input  type="text"  [(ngModel)]="myQuestion" (ngModelChange)="onModelChange()"><br>
+                    </div>
+                    <!-- <router-outlet *ngIf="routerAnswerBool"></router-outlet> -->
+                    <ng-template #router>
+                        <router-outlet ></router-outlet>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="border-1">
+            <h2>{{myQuestion}}</h2>
+            <table style="border: 2px solid black" *ngIf="gridBool && answersLayout != selectBox">
+                <thead style="border: 2px solid black">
+                    <tr>
+                        <th></th>
+                        <th *ngFor="let answer of answers">{{ answer.answer }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let topic of topics; let i = index">
+                        <tr>
+                            <th>{{topic.topic}}</th>
+                            <td style="border: 2px solid black" *ngFor="let answer of answers" >
+                                <input type="radio" [name]="'answer' + i" style="margin-left: 10px;"/>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            <table style="border: 2px solid black" *ngIf="gridBool2 && answersLayout != selectBox">
+                <ng-container *ngFor="let d of data2">
+                    <ng-template [ngIf]="d.typeQuestion.question === myQuestion">
+                        <thead style="border: 2px solid black">
+                            <tr>
+                                <th></th>
+                                <th *ngFor="let answer of d.typeQuestion.answers">{{ answer.answer }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let topic of d.typeQuestion.topics; let i = index">
+                                <tr>
+                                    <th>{{topic.topic}}</th>
+                                    <td style="border: 2px solid black" *ngFor="let answer of d.typeQuestion.answers">
+                                        <input type="radio" [name]="'answer' + i" style="margin-left: 10px;"/>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </ng-template>
+                </ng-container>
+            </table>
+            <div *ngIf="selectBoxBool && answersLayout == selectBox" class="margin" >
+                <ng-container *ngFor="let topic of topics">
+                    <p>{{topic.topic}}</p>
+                    <select name="answer"  class="selectBox">
+                        <option *ngFor="let answer of answers"  [value]="answer.answer">{{answer.answer }}</option>
+                    </select>
+                </ng-container>
+            </div>
+            <div *ngIf="gridBool2 && answersLayout == selectBox" class="margin" >
+                <ng-container *ngFor="let d of data2">
+                    <ng-template [ngIf]="d.typeQuestion.question == myQuestion">
+                        <ng-container *ngFor="let topic of d.typeQuestion.topics">
+                            <p>{{topic.topic}}</p>
+                            <select name="answer"  class="selectBox">
+                                <option *ngFor="let answer of d.typeQuestion.answers"  [value]="answer.answer">{{answer.answer }}</option>
+                            </select>
+                        </ng-container>
+                    </ng-template>
+                </ng-container>
+            </div>
+            <div *ngIf="ruBool && answersLayout  == radio" class="margin">
+                <ng-template [ngIf]="ruBool">
+                    <form>
+                        <input 
+                        type="radio" 
+                        name="sexo" 
+                        value="Masculino"
+                        />
+                        <span  [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</span>
+                        <br>
+                        <br>
+                        <input 
+                            type="radio" 
+                            name="sexo" 
+                            value="Feminino"
+                        />
+                        <span [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</span>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="rmBool && answersLayout  == radio" class="margin">
+                <ng-template [ngIf]="rmBool">
+                    <form>
+                        <input 
+                        type="radio" 
+                        name="sexo" 
+                        value="Masculino"
+                        />
+                        <span  [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</span>
+                        <br>
+                        <br>
+                        <input 
+                            type="radio" 
+                            name="sexo" 
+                            value="Feminino"
+                        />
+                        <span [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</span>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="rmBool2 && answersLayout  == radio" class="margin">
+                <ng-template [ngIf]="rmBool2">
+                    <form>
+                        <input 
+                        type="radio" 
+                        name="sexo" 
+                        value="Masculino"
+                        />
+                        <span  [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</span>
+                        <br>
+                        <br>
+                        <input 
+                            type="radio" 
+                            name="sexo" 
+                            value="Feminino"
+                        />
+                        <span [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</span>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="rmBool && answersLayout  == checkbox" class="margin">
+                <ng-template [ngIf]="rmBool">
+                    <form>
+                        <input 
+                        type="checkbox" 
+                        name="sexo" 
+                        value="Masculino"
+                        />
+                        <span  [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</span>
+                        <br>
+                        <br>
+                        <input 
+                            type="checkbox" 
+                            name="sexo" 
+                            value="Feminino"
+                        />
+                        <span [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</span>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="rmBool2 && answersLayout  == checkbox" class="margin">
+                <ng-template [ngIf]="rmBool2">
+                    <form>
+                        <input 
+                        type="checkbox" 
+                        name="sexo" 
+                        value="Masculino"
+                        />
+                        <span  [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</span>
+                        <br>
+                        <br>
+                        <input 
+                            type="checkbox" 
+                            name="sexo" 
+                            value="Feminino"
+                        />
+                        <span [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</span>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="ruBool2 && answersLayout  == checkbox" class="margin">
+                <ng-template [ngIf]="ruBool2">
+                    <form>
+                        <input 
+                        type="checkbox" 
+                        name="sexo" 
+                        value="Masculino"
+                        />
+                        <span  [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion1}}</span>
+                        <br>
+                        <br>
+                        <input 
+                            type="checkbox" 
+                            name="sexo" 
+                            value="Feminino"
+                        />
+                        <span [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion2}}</span>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="ruBool2 && answersLayout  == radio" class="margin">
+                <ng-template [ngIf]="ruBool2">
+                    <form>
+                        <input 
+                        type="radio" 
+                        name="sexo" 
+                        value="Masculino"
+                        />
+                        <span  [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion1}}</span>
+                        <br>
+                        <br>
+                        <input 
+                            type="radio" 
+                            name="sexo" 
+                            value="Feminino" 
+                        />
+                        <span [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion2}}</span>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="ruBool && answersLayout == selecionar" class="margin">
+                <select name="answer" id="selectBgColor">
+                    <option [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</option>
+                    <option [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</option>
+                </select>
+            </div>
+            <div *ngIf="rmBool && answersLayout == selecionar" class="margin">
+                <select name="answer" id="selectBgColor">
+                    <option [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</option>
+                    <option [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</option>
+                </select>
+            </div>
+            <div *ngIf="rmBool2 && answersLayout == selecionar" class="margin">
+                <select name="answer" id="selectBgColor">
+                    <option [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</option>
+                    <option [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</option>
+                </select>
+            </div>
+            <div *ngIf="ruBool2 && answersLayout == selecionar" class="margin">
+                <select name="answer" id="selectBgColor" >
+                    <option [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion1}}</option>
+                    <option [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion2}}</option>
+                </select>
+            </div>
+            <div *ngIf="ruBool && answersLayout == caixa" class="margin">
+                <p class="box" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</p><br>
+                <p class="box" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</p>
+            </div>
+            <div *ngIf="rmBool && answersLayout == caixa" class="margin">
+                <p class="box" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</p><br>
+                <p class="box" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</p>
+            </div>
+            <div *ngIf="rmBool2 && answersLayout == caixa" class="margin">
+                <p class="box" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</p><br>
+                <p class="box" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</p>
+            </div>
+            <div *ngIf="ruBool2 && answersLayout == caixa" class="margin">
+                <p class="box" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion1}}</p><br>
+                <p class="box" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion2}}</p>
+            </div>
+            <div *ngIf="ruBool && answersLayout == links" class="margin">
+                <a href="#" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</a>
+                <br>
+                <a href="#" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</a>
+            </div>
+            <div *ngIf="rmBool && answersLayout == links" class="margin">
+                <a href="#" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</a>
+                <br>
+                <a href="#" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</a>
+            </div>
+            <div *ngIf="rmBool2 && answersLayout == links" class="margin">
+                <a href="#" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</a>
+                <br>
+                <a href="#" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</a>
+            </div>
+            <div *ngIf="ruBool2 && answersLayout == links" class="margin">
+                <a href="#" [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion1}}</a>
+                <br>
+                <a href="#" [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion2}}</a>
+            </div>
+            <div *ngIf="ruBool && answersLayout == normal" class="margin">
+                <p [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</p>
+                <br>
+                <p [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</p>
+            </div>
+            <div *ngIf="rmBool && answersLayout == normal" class="margin">
+                <p [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</p>
+                <br>
+                <p [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</p>
+            </div>
+            <div *ngIf="rmBool2 && answersLayout == normal" class="margin">
+                <p [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answer1}}</p>
+                <br>
+                <p [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answer2}}</p>
+            </div>
+            <div *ngIf="ruBool2 && answersLayout == normal" class="margin">
+                <p [ngStyle]="{'color': colorAnswer1 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion1}}</p>
+                <br>
+                <p [ngStyle]="{'color': colorAnswer2 === 'black' ? 'black' : this.cor}">{{answerTypeQuestion2}}</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+

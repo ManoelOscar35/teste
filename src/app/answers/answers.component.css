@@ -1,0 +1,85 @@
+.btnEdit {
+    margin-top: -35px;
+    float: left;
+    background-color: #fff;
+    border: 2px solid black;
+    background-color: #cce0ff;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.btnMultiAdd {
+    width: 100px;
+    height: 30px;
+    float: right; 
+    margin-top: -35px;
+    margin-right: 90px;
+    border: 2px solid black;
+    background-color: #cce0ff;
+    cursor: pointer;
+}
+
+.btnMultiUpd {
+    margin-top: -35px;
+    margin-right: 200px;
+    float: right;
+    background-color: #cce0ff;
+    border: 2px solid black;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.inline {
+    display: inline;
+    margin-right: 250px;
+}
+
+input {
+    width: 80px;
+    height: 30px;
+    margin-right: 7px;
+}
+
+.select {
+    width: 300px;
+    height: 30px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.selectWidth {
+    width: 200px;
+    height: 20px;
+}
+
+#container {
+    background-color: #fff;
+    margin: 0 10px;
+}
+
+
+.boxTextIndex {
+    margin-top: 40px;
+    margin-bottom: 100px;
+    border: 1px solid black;
+    height: 200px;
+    width: 700px
+}
+
+.selecionado {
+    background-color: #99c2ff;
+    
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+  

@@ -1,0 +1,13 @@
+<div>
+    <ul>
+        <li class="border">
+            <textarea class="width-height-textarea" [(ngModel)]="answersFront" [value]="juntar()" name="answerFront" type="text"></textarea>
+        </li>
+    </ul>
+    <div>
+        <button class="btn" (click)="closeComponent();">Cancel</button>
+    </div>
+    <div>
+        <button class="btn" (click)="update();">Update</button>
+    </div>
+</div>
